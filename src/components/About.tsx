@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Sparkles, Sun, Moon } from "lucide-react";
 
+const TextHighlight = ({ children }: { children: React.ReactNode }) => (
+  <span style={{ fontWeight: 700, color: "#3B82F6" }}>{children}</span>
+);
+
 export default function About() {
   const [isDark, setIsDark] = useState(false);
 
@@ -23,18 +27,17 @@ export default function About() {
   return (
     <motion.section
       id="about"
-      className="py-24 md:py-32 overflow-hidden relative"
-      style={{ 
-        width: '100vw', 
-        minHeight: '100vh', 
-        position: 'relative', 
-        left: '50%', 
-        right: '50%', 
-        marginLeft: '-50vw', 
+      className="overflow-hidden relative"
+      style={{
+        width: '100vw',
+        height: '85vh',
+        minHeight: '700px',
+        position: 'relative',
+        left: '50%',
+        right: '50%',
+        marginLeft: '-50vw',
         marginRight: '-50vw',
-        overflow: 'hidden' 
       }}
-      animate={{ backgroundColor: isDark ? "#000" : "#FFF" }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <AnimatePresence initial={false}>
@@ -50,6 +53,7 @@ export default function About() {
             backgroundImage: `url(${isDark ? "/images/about2.png" : "/images/about1.svg"})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             position: 'absolute',
             top: 0,
             left: 0,
@@ -90,55 +94,99 @@ export default function About() {
         </button>
       </div>
 
-      <div className="flex flex-col items-center text-center gap-16 px-6 md:px-20 relative z-10">
-        
-        {/* Narrative */}
-        <div className="flex flex-col gap-6 items-center">
-          {/* Tag */}
-          <div className="flex items-center gap-2 text-blue-400 font-display font-extrabold tracking-widest text-xs uppercase">
-            <Sparkles size={14} className="fill-blue-400" />
-            <span>ABOUT ME</span>
+      <div
+        className="relative z-10"
+        style={{
+          maxWidth: "1440px",
+          margin: "0 auto",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            width: '100%',
+            padding: '0 80px',
+            paddingTop: '70px',
+            display: "grid",
+            gridTemplateColumns: "45% 55%",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          {/* Left Column (empty for background artwork) */}
+          <div></div>
+
+          {/* Right Column (content) */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              maxWidth: "650px",
+            }}
+          >
+            {/* Tag */}
+            <div className="flex items-center gap-2 text-blue-400 font-display font-extrabold tracking-widest text-xs uppercase" style={{ marginBottom: "24px" }}>
+              <Sparkles size={14} className="fill-blue-400" />
+              <span>ABOUT ME</span>
+            </div>
+
+            {/* Heading */}
+            <motion.h2
+              className="text-5xl lg:text-6xl font-display font-black tracking-tight leading-none"
+              style={{ marginBottom: "40px" }}
+              variants={textVariants}
+              animate={isDark ? "dark" : "light"}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              a little about myself
+            </motion.h2>
+
+            {/* Text Paragraphs */}
+            <motion.div
+              className="flex flex-col"
+              style={{ gap: "28px" }}
+              variants={textVariants}
+              animate={isDark ? "dark" : "light"}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              <p style={{ fontSize: "20px", lineHeight: 1.7 }}>
+                My journey began with a passion for{" "}
+                <TextHighlight>Graphic Design</TextHighlight>,{" "}
+                <TextHighlight>Photography</TextHighlight>, and{" "}
+                <TextHighlight>Technology</TextHighlight>. Over the years, I
+                explored visual storytelling, branding, photo editing, and digital
+                content while building a strong foundation in{" "}
+                <TextHighlight>Information Technology</TextHighlight>.
+              </p>
+              <p style={{ fontSize: "20px", lineHeight: 1.7 }}>
+                Today, I combine creativity with structured problem solving
+                through <TextHighlight>UI Design</TextHighlight>,{" "}
+                <TextHighlight>Photography</TextHighlight>,{" "}
+                <TextHighlight>Digital Content</TextHighlight>, and{" "}
+                <TextHighlight>Administrative Operations</TextHighlight>. I enjoy
+                creating experiences that are visually engaging, organized, and{" "}
+                <TextHighlight>meaningful</TextHighlight> while continuously
+                learning and improving.
+              </p>
+            </motion.div>
+
+            {/* Large Signature Graphic */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.4 }}
+              style={{ marginTop: "40px" }}
+            >
+              <span className="font-handwritten text-5xl text-blue-400 font-bold tracking-wide block transform -rotate-2 select-none">
+                Sopyan Ahsan.
+              </span>
+            </motion.div>
           </div>
-
-          {/* Heading */}
-          <motion.h2
-            className="text-4xl sm:text-5xl font-display font-black tracking-tight leading-none"
-            variants={textVariants}
-            animate={isDark ? "dark" : "light"}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-          >
-            a little about myself
-          </motion.h2>
-
-          {/* Text Paragraphs */}
-          <motion.div
-            className="flex flex-col gap-5 text-base sm:text-lg leading-relaxed font-medium"
-            variants={textVariants}
-            animate={isDark ? "dark" : "light"}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-          >
-            <p>
-              My journey into design started long before product design. I began with graphic design at a young age, spending years experimenting with Photoshop, branding projects, and freelance work. During college, I worked part-time designing websites, emails, and social media campaigns, which helped me build a strong foundation across different areas of design.
-            </p>
-            <p>
-              Today, I work on consumer and enterprise products, where I enjoy turning complex workflows into experiences that feel simple and intuitive. I'm particularly drawn to problems that sit at the intersection of user needs, business goals, and technical constraints.
-            </p>
-          </motion.div>
-
-          {/* Large Signature Graphic */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="mt-4"
-          >
-            <span className="font-handwritten text-6xl sm:text-7xl text-blue-400 font-bold tracking-wide block transform -rotate-2 select-none">
-              Sanjay.
-            </span>
-          </motion.div>
         </div>
-
       </div>
     </motion.section>
   );

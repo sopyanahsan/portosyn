@@ -17,7 +17,7 @@ export default function Journey() {
             the journey so far
           </h2>
           <p className="text-gray-400 text-base sm:text-lg font-medium leading-relaxed mt-2">
-            From healthcare SaaS to insurance to community tech — four roles across two years, and counting.
+            From insurance tech to community tech — two roles and counting.
           </p>
         </div>
 
