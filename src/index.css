@@ -39,6 +39,14 @@ body, a, button {
 }
 
 :root {
+  --background: #0d0d0d;
+  --foreground: #efeeec;
+  --primary: #2E90E5;
+  --secondary: #a78bfa;
+  --destructive: #ef4444;
+  --border: #efeeec;
+  --muted-foreground: #a0a0a0;
+
   --color-black: #0d0d0d;
   --color-dark: #141414;
   --color-neutral-900: #1c1c1c;
@@ -48,16 +56,11 @@ body, a, button {
 }
 
 .cloneable {
-  padding: var(--container-padding);
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  display: flex;
+  padding: var(--container-padding) 0; /* Adjust padding for block layout */
   position: relative;
-  font-size: 1.1vw;
   background-color: var(--color-black);
   color: var(--color-light);
-  overflow: hidden;
+  overflow: hidden; /* Keep this to contain the slider */
 }
 
 .overlay {
@@ -68,8 +71,8 @@ body, a, button {
   width: 37.5em;
   height: 100%;
   padding-left: 2em;
-  display: flex;
-  position: absolute;
+  display: none; /* Hiding for now, can be re-enabled if needed without absolute */
+  /* position: absolute; */ /* REMOVED */
   inset: 0% auto 0% 0%;
 }
 
@@ -185,10 +188,11 @@ body, a, button {
 .main-slider {
   z-index: 0;
   width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0%;
+  /* height: 100%; */ /* Let height be intrinsic */
+  /* position: absolute; */ /* REMOVED */
+  /* inset: 0%; */
   overflow: hidden;
+  padding: 4rem 0; /* Add some vertical padding */
 }
 
 .slider-wrap {
@@ -403,3 +407,26 @@ body {
 .container {
   padding: 0 2rem;
 }
+
+@keyframes meshMove1 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  25% { transform: translate(5%, 10%) scale(1.05); }
+  50% { transform: translate(10%, 5%) scale(0.95); }
+  75% { transform: translate(5%, -5%) scale(1.02); }
+}
+@keyframes meshMove2 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  33% { transform: translate(-10%, 8%) scale(1.08); }
+  66% { transform: translate(-5%, -5%) scale(0.95); }
+}
+@keyframes meshMove3 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  50% { transform: translate(-8%, -10%) scale(1.1); }
+}
+@keyframes meshMove4 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  25% { transform: translate(15%, -10%) scale(0.9); }
+  50% { transform: translate(-10%, 15%) scale(1.1); }
+  75% { transform: translate(-15%, -5%) scale(0.95); }
+}
+
