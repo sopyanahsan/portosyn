@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Sparkles, MapPin, Calendar } from "lucide-react";
 import { cn } from "../lib/utils";
+import { MeshGradientBackground } from "./ui/mesh-gradient";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,7 +69,7 @@ export default function Journey() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
         start: "top top",
-        end: () => "+=" + window.innerWidth * experiences.length,
+        end: () => "+=" + (wrapper.scrollWidth - wrapper.clientWidth),
         onUpdate: (self) => {
           const progress = self.progress;
           const activeCardIndex = Math.round(progress * (experiences.length - 1));
@@ -78,8 +79,7 @@ export default function Journey() {
           }
         },
       });
-
-      ScrollTrigger.refresh();
+      setTimeout(() => ScrollTrigger.refresh(), 500);
     }, sectionRef);
 
     return () => {
@@ -91,18 +91,22 @@ export default function Journey() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center bg-white dark:bg-black text-black dark:text-white overflow-hidden w-full"
+      className="relative min-h-screen flex flex-col items-center justify-center text-black dark:text-white overflow-hidden w-full"
     >
+      <MeshGradientBackground
+        colors={["#2dd4bf", "#0ea5e9", "#8b5cf6", "#06b6d4"]}
+        speed={0.8}
+        backgroundColor="#d8eef0"
+      />
       <div
         className={cn(
-          "absolute inset-0",
+          "absolute inset-0 pointer-events-none opacity-30",
           "[background-size:40px_40px]",
-          "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
-          "dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]",
+          "[background-image:linear-gradient(to_right,#183b3f_1px,transparent_1px),linear-gradient(to_bottom,#183b3f_1px,transparent_1px)]"
         )}
       />
-      {/* Radial gradient for the container to give a faded look */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
+      {/* Radial gradient mask for grid */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#d8eef0] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       {/* Fixed Heading */}
       <div className="absolute top-12 left-0 right-0 text-center z-20 px-6">
         <div className="inline-flex items-center gap-2 text-emerald-400 dark:text-emerald-600 font-bold tracking-widest text-xs uppercase bg-zinc-900 dark:bg-zinc-100 px-4 py-2 rounded-full border border-zinc-800 dark:border-zinc-200">
